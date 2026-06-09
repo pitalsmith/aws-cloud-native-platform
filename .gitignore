@@ -1,0 +1,17 @@
+# Terraform
+**/.terraform/*
+*.tfstate
+*.tfstate.*
+*.tfvars
+
+# AWS credentials
+.aws/
+
+# IDE
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
+
+terraform-single/
