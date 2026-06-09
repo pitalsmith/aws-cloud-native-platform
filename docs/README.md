@@ -109,17 +109,15 @@ VPC (10.0.0.0/16)
 
 ### Cluster Overview (AWS Console)
 
-* Show cluster ACTIVE status
-
-> EKS cluster is successfully deployed and operational.
+> The EKS cluster is successfully deployed and in ACTIVE state, confirming the managed Kubernetes control plane is operational.
+> ![GitHub Actions Dashboard](https://github.com/pitalsmith/aws-cloud-native-platform/blob/a40d4b243ad49ddd4da594caa73808787b6f1c36/docs/assets/eks_cluster.JPG)
 
 ---
 
 ### Worker Nodes
 
-* Show EC2 instances in Ready state
-
-> Worker nodes are successfully registered and connected to the Kubernetes cluster.
+> Two worker nodes are successfully registered and connected to the Kubernetes cluster, confirming proper IAM configuration and cluster-node communication.
+> ![GitHub Actions Dashboard](https://github.com/pitalsmith/aws-cloud-native-platform/blob/a40d4b243ad49ddd4da594caa73808787b6f1c36/docs/assets/Nodes_2.JPG)
 
 ---
 
@@ -131,7 +129,8 @@ VPC (10.0.0.0/16)
 kubectl get pods -A
 ```
 
-> All system and backend application pods are running successfully.
+> All Kubernetes system and application pods are running successfully, including backend API pods and core system services (CoreDNS, kube-proxy, AWS CNI).
+> ![GitHub Actions Dashboard](https://github.com/pitalsmith/aws-cloud-native-platform/blob/a40d4b243ad49ddd4da594caa73808787b6f1c36/docs/assets/Nodes_1.JPG)
 
 ---
 
@@ -142,6 +141,7 @@ kubectl get nodes
 ```
 
 > Kubernetes worker nodes are fully operational and in Ready state.
+> ![GitHub Actions Dashboard](https://github.com/pitalsmith/aws-cloud-native-platform/blob/a40d4b243ad49ddd4da594caa73808787b6f1c36/docs/assets/Nodes_1b.JPG)
 
 ---
 
@@ -149,9 +149,9 @@ kubectl get nodes
 
 ### ALB Dashboard
 
-* Show ALB DNS endpoint
 
 > Application Load Balancer routes traffic to backend services running in EKS.
+> ![GitHub Actions Dashboard](https://github.com/pitalsmith/aws-cloud-native-platform/blob/a40d4b243ad49ddd4da594caa73808787b6f1c36/docs/assets/ALB.JPG)
 
 ---
 
@@ -159,10 +159,11 @@ kubectl get nodes
 
 ### RDS Instance
 
-* Show status = Available
-* Show endpoint
 
 > PostgreSQL database is deployed in a private subnet and securely accessed by backend services.
+> ![GitHub Actions Dashboard](https://github.com/pitalsmith/aws-cloud-native-platform/blob/a40d4b243ad49ddd4da594caa73808787b6f1c36/docs/assets/RSD.JPG)
+> > Instance endpoint
+> ![GitHub Actions Dashboard](https://github.com/pitalsmith/aws-cloud-native-platform/blob/4781a6c9579916f305708e9c30f1fe699d638d0c/docs/assets/RDS_endpoint.JPG)
 
 ---
 
@@ -170,9 +171,7 @@ kubectl get nodes
 
 ### VPC Layout
 
-* Show VPC, subnets, NAT Gateway
-
-> Custom VPC ensures secure separation between public and private workloads.
+> > ![GitHub Actions Dashboard](https://github.com/pitalsmith/aws-cloud-native-platform/blob/62c3445692a85cabf992ab9cefb3726b9f07274e/docs/assets/vpc_1.JPG)
 
 ---
 
@@ -181,7 +180,7 @@ kubectl get nodes
 ## 1. Clone Repository
 
 ```bash id="z8q2v1"
-git clone https://github.com/<your-username>/aws-cloud-native-platform.git
+git clone https://github.com/pitalsmith/aws-cloud-native-platform.git
 cd aws-cloud-native-platform/terraform/environments/dev
 ```
 
