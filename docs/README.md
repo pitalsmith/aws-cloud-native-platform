@@ -23,15 +23,8 @@ The goal is to simulate a real-world **scalable cloud-native system** used in mo
 
 ## System Architecture
 
-```text id="ydor6a"
-Users
-  ↓
-Application Load Balancer (ALB)
-  ↓
-EKS Cluster (Backend - Node.js API)
-  ↓
-RDS PostgreSQL (Private Subnet)
-```
+
+> ![GitHub Actions Dashboard](https://github.com/pitalsmith/aws-cloud-native-platform/blob/66cbf7d4e60620fd61f5ecc6f7080f9361302e29/docs/assets/AWS%20Native%20Cloud1.drawio.svg)
 
 ---
 
