@@ -19,6 +19,6 @@ resource "aws_db_instance" "this" {
   publicly_accessible = false
   skip_final_snapshot  = true
 
-#Multi A-Z Disaster recovery enabled
+#Multi A-Z enabled
   multi_az = true
 }
