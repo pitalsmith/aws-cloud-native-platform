@@ -51,3 +51,9 @@ module "backend" {
   name  = "backend-api"
   image = "nginx:latest"
 }
+
+module "ecr" {
+  source = "../../modules/ecr"
+
+  repository_name = "backend-api"
+}
