@@ -12,7 +12,7 @@ It implements a fully functional **3-tier architecture**:
 
 * **Frontend Layer** (future: React app on S3 + CloudFront)
 * **Backend Layer** (Node.js API running on AWS EKS)
-* **Database Layer** (Amazon RDS PostgreSQL)
+* **Database Layer** (Multi AZ Amazon RDS PostgreSQL)
 * **Networking Layer** (Custom VPC with public and private subnets)
 
 The goal is to simulate a real-world **scalable cloud-native system** used in modern DevOps environments.
@@ -155,13 +155,14 @@ kubectl get nodes
 
 ---
 
-## Database (RDS PostgreSQL)
+## Multi AZ Database (RDS PostgreSQL)
 
 ### RDS Instance
 
 
 > PostgreSQL database is deployed in a private subnet and securely accessed by backend services.
-> ![GitHub Actions Dashboard](https://github.com/pitalsmith/aws-cloud-native-platform/blob/a40d4b243ad49ddd4da594caa73808787b6f1c36/docs/assets/RSD.JPG)
+> ![GitHub Actions Dashboard](https://github.com/pitalsmith/aws-cloud-native-platform/blob/eb8bb3faa4b2f161a3e86f162297ffe4b324dfbf/docs/assets/a2.JPG)
+>  ![GitHub Actions Dashboard](https://github.com/pitalsmith/aws-cloud-native-platform/blob/eb8bb3faa4b2f161a3e86f162297ffe4b324dfbf/docs/assets/a1.JPG)
 > > Instance endpoint
 > ![GitHub Actions Dashboard](https://github.com/pitalsmith/aws-cloud-native-platform/blob/4781a6c9579916f305708e9c30f1fe699d638d0c/docs/assets/RDS_endpoint.JPG)
 
