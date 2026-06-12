@@ -1,4 +1,4 @@
-# AWS Cloud-Native Platform
+# AWS Cloud-Native Platform 2
 
 ## **Scalable 3-Tier Infrastructure using Terraform, AWS EKS, and PostgreSQL**
 
