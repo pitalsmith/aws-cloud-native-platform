@@ -64,7 +64,7 @@ function App() {
 
   return (
     <div className="app-container">
-      <header><h1>My Ledger</h1></header>
+      <header><h1>My Ledger UI</h1></header>
 
       <div className="balance-card">
         <h3>Current Balance</h3>
