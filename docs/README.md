@@ -1,302 +1,93 @@
-# AWS Cloud-Native Platform 2
+# Portfolio: Cloud-Native Infrastructure & CI/CD Automation
 
-## **Scalable 3-Tier Infrastructure using Terraform, AWS EKS, and PostgreSQL**
+## Project 2: Automated CI/CD for Frontend (S3 + CloudFront)
 
----
+### Project Summary
 
-# Project Overview
+Designed and implemented a production-grade CI/CD pipeline to automate the deployment of a React-based frontend application. By integrating **GitHub Actions** with **AWS S3** and **CloudFront**, I replaced manual deployment processes with an automated workflow, ensuring rapid, secure, and globally consistent content delivery.
 
-This project demonstrates the design and deployment of a **production-grade AWS cloud-native infrastructure** using **Terraform (Infrastructure as Code)**.
+### Why This Project Matters
 
-It implements a fully functional **3-tier architecture**:
+In modern engineering, manual deployments are slow, error-prone, and a security risk. This project demonstrates:
 
-* **Frontend Layer** (future: React app on S3 + CloudFront)
-* **Backend Layer** (Node.js API running on AWS EKS)
-* **Database Layer** (Multi AZ Amazon RDS PostgreSQL)
-* **Networking Layer** (Custom VPC with public and private subnets)
+* **Operational Excellence:** Changes are live within minutes of being pushed, significantly reducing time-to-market.
+* **Global Performance:** Using CloudFront ensures that the application is served from edge locations, minimizing latency for end-users.
+* **Security-First Mindset:** By leveraging GitHub Repository Secrets, I ensured that sensitive AWS credentials and resource IDs are never exposed in the source code.
 
-The goal is to simulate a real-world **scalable cloud-native system** used in modern DevOps environments.
+### Technical Architecture
 
----
+* **Frontend:** React (Vite-based build process).
+* **Hosting:** AWS S3 (Static Website Hosting).
+* **Content Delivery:** Amazon CloudFront (Global CDN for HTTPS and caching).
+* **CI/CD Engine:** GitHub Actions (YAML-defined automation workflow).
+* **Security:** AWS IAM (Least-Privilege model) & GitHub Repository Secrets.
 
-# Architecture Overview
+### Key Implementation Steps
 
-## System Architecture
+1. **IAM Configuration:** Created a dedicated AWS IAM user with specific, restricted permissions for S3 bucket synchronization and CloudFront invalidation.
+2. **Secret Management:** Configured GitHub Repository Secrets to securely handle `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, and deployment identifiers.
+3. **Workflow Automation:** Engineered a `.github/workflows/deploy-frontend.yml` file to handle the entire lifecycle:
+* **Checkout:** Pulls the latest code from the repository.
+* **Build:** Executes `npm run build` to generate optimized production artifacts.
+* **Sync:** Automatically pushes the generated `dist/` directory to the S3 bucket.
+* **Invalidation:** Triggers a CloudFront cache invalidation, ensuring immediate global propagation of updates.
 
 
-> ![GitHub Actions Dashboard](https://github.com/pitalsmith/aws-cloud-native-platform/blob/66cbf7d4e60620fd61f5ecc6f7080f9361302e29/docs/assets/AWS%20Native%20Cloud1.drawio.svg)
+4. **Troubleshooting:** Resolved environmental mismatches (e.g., pathing discrepancies between `dist` and `build` folders) and authentication errors, resulting in a stable, reproducible deployment pipeline.
 
----
-
-## Network Architecture
-
-```text id="r4x0b3"
-VPC (10.0.0.0/16)
-│
-├── Public Subnets
-│   ├── Application Load Balancer
-│   ├── NAT Gateway
-│
-├── Private Subnets
-│   ├── EKS Worker Nodes
-│   ├── RDS Database
-```
+### Visual Proof
+To make your **Visual Proof** section look like a professional case study, use these descriptive captions. They focus on **business value** and **technical competence**, which is what hiring managers look for.
 
 ---
 
-# Tech Stack
+### Visual Proof Section
 
-* Terraform (Infrastructure as Code)
-* AWS EKS (Kubernetes)
-* AWS RDS (PostgreSQL)
-* AWS VPC Networking
-* AWS ALB (Load Balancer)
-* IAM (Identity & Access Management)
-* Kubernetes (Container Orchestration)
+**[Screenshot 1: The CI/CD "Green" Light]**
 
----
+> **Caption:** "GitHub Actions Workflow Execution: A successful CI/CD pipeline run. This demonstrates the automation of build, test, and deployment processes, resulting in a 'green' status after every code commit."
 
-# Infrastructure Components
+**[Screenshot 2: AWS Resource Management]**
 
-## 1. Networking Layer
+> **Caption:** "AWS Infrastructure Configuration: A snapshot of the S3 bucket and CloudFront distribution settings. This highlights the architectural setup of static asset hosting combined with a Global CDN for low-latency delivery."
 
-* Custom VPC (10.0.0.0/16)
-* Public and Private Subnets across multiple AZs
-* Internet Gateway for public access
-* NAT Gateway for private subnet outbound traffic
-* Route Tables for traffic control
+**[Screenshot 3: The Live Production Environment]**
+
+> **Caption:** "Live Production Deployment: The final application running via the CloudFront distribution domain (`*.cloudfront.net`). This validates that the deployment pipeline successfully pushed the latest build and that global edge locations are serving the application."
+
+**[Screenshot 4: Secure Secret Management]**
+
+> **Caption:** "Infrastructure Security: A view of the GitHub Repository Secrets settings. This provides visual proof of security-first engineering, demonstrating that sensitive AWS credentials and IDs are encrypted and managed outside of the source code."
+
+
 
 ---
 
-## 2. Kubernetes Layer (EKS)
+### Challenges Faced & Solutions
 
-* Managed Kubernetes Cluster
-* EC2 Worker Node Group (Auto Scaling)
-* Core system pods (CoreDNS, kube-proxy, AWS CNI)
-* IAM role-based node authentication
-* Multi-AZ deployment for high availability
+Every production-level deployment involves troubleshooting. These were the primary technical hurdles encountered during the development of this pipeline:
 
----
+* **Authentication & Secrets Access:**
+* *Challenge:* The pipeline initially failed with `null` values when accessing AWS credentials, caused by environment-specific scoping in GitHub Actions.
+* *Solution:* Refactored the repository secrets to ensure they were correctly scoped at the environment level and verified the IAM user permissions followed the principle of least privilege.
 
-## 3. Backend Layer
 
-* Node.js API deployed on Kubernetes
-* Managed via Terraform Kubernetes provider
-* Exposed via AWS Application Load Balancer
-* Multiple pods for scalability and fault tolerance
+* **Build Artifact Pathing:**
+* *Challenge:* The deployment failed because the pipeline was hardcoded to look for a `/build` folder, but the project’s build tool (Vite) generated a `/dist` folder.
+* *Solution:* Standardized the build process and updated the workflow YAML to dynamically sync the correct directory, improving the robustness of the CI/CD script.
 
----
 
-## 4. Database Layer
+* **CloudFront Distribution Resolution:**
+* *Challenge:* The `NoSuchDistribution` error occurred because of a mismatch between the environment secret and the actual AWS CloudFront ID.
+* *Solution:* Validated the CloudFront configuration in the AWS Console and sanitized the secret to ensure no trailing whitespaces were causing connectivity failures.
 
-* Amazon RDS PostgreSQL instance
-* Deployed inside private subnet
-* No public internet access
-* Secure backend-to-database communication
+
 
 ---
 
-# Visual Proof of Deployment
+### Summary
 
-## EKS Cluster
+This project represents a successful implementation of modern **DevOps principles**. By automating the deployment process, I transformed a manual, error-prone task into a streamlined, one-click (or zero-click) workflow.
 
-### Cluster Overview (AWS Console)
-
-> The EKS cluster is successfully deployed and in ACTIVE state, confirming the managed Kubernetes control plane is operational.
-> ![GitHub Actions Dashboard](https://github.com/pitalsmith/aws-cloud-native-platform/blob/a40d4b243ad49ddd4da594caa73808787b6f1c36/docs/assets/eks_cluster.JPG)
-
----
-
-### Worker Nodes
-
-> Two worker nodes are successfully registered and connected to the Kubernetes cluster, confirming proper IAM configuration and cluster-node communication.
-> ![GitHub Actions Dashboard](https://github.com/pitalsmith/aws-cloud-native-platform/blob/a40d4b243ad49ddd4da594caa73808787b6f1c36/docs/assets/Nodes_2.JPG)
-
----
-
-## Kubernetes Workloads
-
-### Pods Running
-
-```bash id="p7lj2z"
-kubectl get pods -A
-```
-
-> All Kubernetes system and application pods are running successfully, including backend API pods and core system services (CoreDNS, kube-proxy, AWS CNI).
-> ![GitHub Actions Dashboard](https://github.com/pitalsmith/aws-cloud-native-platform/blob/a40d4b243ad49ddd4da594caa73808787b6f1c36/docs/assets/Nodes_1.JPG)
-
----
-
-### Nodes Status
-
-```bash id="4s5m0x"
-kubectl get nodes
-```
-
-> Kubernetes worker nodes are fully operational and in Ready state.
-> ![GitHub Actions Dashboard](https://github.com/pitalsmith/aws-cloud-native-platform/blob/a40d4b243ad49ddd4da594caa73808787b6f1c36/docs/assets/Nodes_1b.JPG)
-
----
-
-## Load Balancer
-
-### ALB Dashboard
-
-
-> Application Load Balancer routes traffic to backend services running in EKS.
-> ![GitHub Actions Dashboard](https://github.com/pitalsmith/aws-cloud-native-platform/blob/a40d4b243ad49ddd4da594caa73808787b6f1c36/docs/assets/ALB.JPG)
-
----
-
-## Multi AZ Database (RDS PostgreSQL)
-
-### RDS Instance
-
-
-> PostgreSQL database is deployed in a private subnet and securely accessed by backend services.
-> ![GitHub Actions Dashboard](https://github.com/pitalsmith/aws-cloud-native-platform/blob/eb8bb3faa4b2f161a3e86f162297ffe4b324dfbf/docs/assets/a2.JPG)
->  ![GitHub Actions Dashboard](https://github.com/pitalsmith/aws-cloud-native-platform/blob/eb8bb3faa4b2f161a3e86f162297ffe4b324dfbf/docs/assets/a1.JPG)
-> > Instance endpoint
-> ![GitHub Actions Dashboard](https://github.com/pitalsmith/aws-cloud-native-platform/blob/4781a6c9579916f305708e9c30f1fe699d638d0c/docs/assets/RDS_endpoint.JPG)
-
----
-
-## Network Infrastructure
-
-### VPC Layout
-
-> > ![GitHub Actions Dashboard](https://github.com/pitalsmith/aws-cloud-native-platform/blob/62c3445692a85cabf992ab9cefb3726b9f07274e/docs/assets/vpc_1.JPG)
-
----
-
-# How to Run This Project
-
-## 1. Clone Repository
-
-```bash id="z8q2v1"
-git clone https://github.com/pitalsmith/aws-cloud-native-platform.git
-cd aws-cloud-native-platform/terraform/environments/dev
-```
-
----
-
-## 2. Configure AWS Credentials
-
-```bash id="a1b2c3"
-aws configure
-```
-
----
-
-## 3. Initialize Terraform
-
-```bash id="t4r5f6"
-terraform init
-```
-
----
-
-## 4. Validate Configuration
-
-```bash id="v7w8x9"
-terraform validate
-```
-
----
-
-## 5. Preview Deployment
-
-```bash id="p0q1r2"
-terraform plan
-```
-
----
-
-## 6. Deploy Infrastructure
-
-```bash id="d3e4f5"
-terraform apply -auto-approve
-```
-
----
-
-## 7. Verify Kubernetes Cluster
-
-```bash id="k8s123"
-kubectl get nodes
-kubectl get pods -A
-```
-
----
-
-## 8. Destroy Infrastructure (Optional)
-
-```bash id="destroy1"
-terraform destroy -auto-approve
-```
-
----
-
-# Final Outcome
-
-✔ Fully deployed AWS cloud-native infrastructure
-✔ Working Kubernetes cluster with active nodes
-✔ Backend API successfully running on EKS
-✔ PostgreSQL database deployed in private subnet
-✔ Application Load Balancer routing traffic externally
-✔ Secure multi-tier AWS architecture implemented
-
----
-
-# Key Learnings
-
-* AWS EKS cluster design and deployment
-* Kubernetes workload management
-* Infrastructure as Code with Terraform
-* IAM roles and security policies
-* VPC networking (public/private architecture)
-* Debugging real-world cloud infrastructure issues
-
----
-
-# Key Engineering Challenges
-
-## 1. EKS Node Group Registration Failure
-
-Worker nodes initially failed to join the Kubernetes cluster.
-
-**Solution:** Correct IAM roles and AWS EKS policies fixed authentication issues.
-
----
-
-## 2. Terraform State Drift & Conflicts
-
-Infrastructure mismatches caused deployment inconsistencies.
-
-**Solution:** Resolved state alignment issues with AWS resources.
-
----
-
-## 3. AWS Service Constraints (RDS & Networking)
-
-Issues with PostgreSQL versions, reserved usernames, and NAT route conflicts.
-
-**Solution:** Adjusted configuration to comply with AWS service limitations.
-
----
-
-## 4. Kubernetes Authentication Issue
-
-Initial restricted access to cluster resources.
-
-**Solution:** Configured `aws-auth` ConfigMap for IAM-to-Kubernetes mapping.
-
----
-
-# Summary
-
-This project demonstrates a complete **end-to-end cloud-native AWS architecture**, built using Terraform and modern DevOps practices.
-
-It simulates real production infrastructure used in scalable applications and distributed systems.
+This architecture not only ensures that the frontend application is **highly available and globally accessible** via CloudFront, but it also adheres to **industry-standard security practices** by keeping sensitive infrastructure credentials entirely out of the codebase. This foundation of automated infrastructure provides a reliable base upon which the backend and database components can be integrated, forming a fully cohesive, scalable 3-tier cloud application.
 
 ---
