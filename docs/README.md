@@ -43,18 +43,23 @@ To make your **Visual Proof** section look like a professional case study, use t
 ### Visual Proof Section
 
 **[Screenshot 1: The CI/CD "Green" Light]**
+> ![GitHub Actions Dashboard](https://github.com/pitalsmith/aws-cloud-native-platform/blob/f94a8c00bbab1e484c5ba32d99e760f0ac4bbb20/docs/assets/CI_1_.jpg)
 
 > **Caption:** "GitHub Actions Workflow Execution: A successful CI/CD pipeline run. This demonstrates the automation of build, test, and deployment processes, resulting in a 'green' status after every code commit."
 
 **[Screenshot 2: AWS Resource Management]**
+> ![GitHub Actions Dashboard](https://github.com/pitalsmith/aws-cloud-native-platform/blob/f94a8c00bbab1e484c5ba32d99e760f0ac4bbb20/docs/assets/S3_2_.jpg)
+> > ![GitHub Actions Dashboard](https://github.com/pitalsmith/aws-cloud-native-platform/blob/f94a8c00bbab1e484c5ba32d99e760f0ac4bbb20/docs/assets/Cloudfront_2_.jpg)
 
 > **Caption:** "AWS Infrastructure Configuration: A snapshot of the S3 bucket and CloudFront distribution settings. This highlights the architectural setup of static asset hosting combined with a Global CDN for low-latency delivery."
 
 **[Screenshot 3: The Live Production Environment]**
+> ![GitHub Actions Dashboard](https://github.com/pitalsmith/aws-cloud-native-platform/blob/f94a8c00bbab1e484c5ba32d99e760f0ac4bbb20/docs/assets/FrontendUI_3_.jpg)
 
 > **Caption:** "Live Production Deployment: The final application running via the CloudFront distribution domain (`*.cloudfront.net`). This validates that the deployment pipeline successfully pushed the latest build and that global edge locations are serving the application."
 
 **[Screenshot 4: Secure Secret Management]**
+> ![GitHub Actions Dashboard](https://github.com/pitalsmith/aws-cloud-native-platform/blob/f94a8c00bbab1e484c5ba32d99e760f0ac4bbb20/docs/assets/Git_Secret_4_.jpg)
 
 > **Caption:** "Infrastructure Security: A view of the GitHub Repository Secrets settings. This provides visual proof of security-first engineering, demonstrating that sensitive AWS credentials and IDs are encrypted and managed outside of the source code."
 
