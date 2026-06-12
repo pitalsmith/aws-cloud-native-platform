@@ -3,7 +3,8 @@
 *.tfstate
 *.tfstate.*
 *.tfvars
-
+*.tfstate.backup
+.terraform.lock.hcl
 # AWS credentials
 .aws/
 
