@@ -3,11 +3,16 @@ name: Deploy Frontend to S3 and CloudFront
 on:
   push:
     branches:
-      - deploy/frontend # This workflow runs when you push to this branch
+      - deploy/frontend
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    
+    defaults:
+      run:
+        working-directory: app/frontend
+
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -30,8 +35,7 @@ jobs:
           aws-region: ${{ secrets.AWS_REGION }}
 
       - name: Sync to S3
-        # Replace 'dist' with 'build' if your framework uses that folder name
-        run: aws s3 sync ./dist s3://${{ secrets.AWS_S3_BUCKET }} --delete
+        run: aws s3 sync ./build s3://${{ secrets.AWS_S3_BUCKET }} --delete
 
       - name: Invalidate CloudFront
         run: |
