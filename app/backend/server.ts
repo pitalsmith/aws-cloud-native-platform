@@ -7,13 +7,21 @@ app.use(cors());
 app.use(express.json());
 
 const pool = new Pool({
-  host: 'localhost', // Changed from 127.0.0.1
-  user: 'user',
-  password: 'password',
-  database: 'banking_ledger',
-  port: 5433,
-
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
+  port: 5432, // Ensure this matches your RDS port
 });
+
+// const pool = new Pool({
+//   host: 'localhost', // Changed from 127.0.0.1
+//   user: 'user',
+//   password: 'password',
+//   database: 'banking_ledger',
+//   port: 5433,
+
+// });
 
 app.get('/api/balance', async (req, res) => {
   let client;
