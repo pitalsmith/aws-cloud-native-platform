@@ -65,7 +65,7 @@ function App() {
 
   return (
     <div className="app-container">
-      <header><h1>My Ledger</h1></header>
+      <header><h1>My Ledger_</h1></header>
 
       <div className="balance-card">
         <h3>Current Balance_</h3>
