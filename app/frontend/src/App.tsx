@@ -70,7 +70,7 @@ function App() {
       <header><h1>My Ledger</h1></header>
 
       <div className="balance-card">
-        <h3>Current Balance</h3>
+        <h3>Current Balance__</h3>
         <h1 className="balance-amount">${balance.toLocaleString()}</h1>
       </div>
 
