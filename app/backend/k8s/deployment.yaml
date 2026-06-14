@@ -14,6 +14,10 @@ spec:
       labels:
         app: nodejs-backend
     spec:
+      hostAliases:
+      - ip: "10.0.11.116" # <--- YOUR RDS PRIVATE IP
+        hostnames:
+        - "terraform-20260612074353910200000004.c0de0qocu6j6.us-east-1.rds.amazonaws.com"
       containers:
       - name: backend
         image: 763054201983.dkr.ecr.us-east-1.amazonaws.com/backend-api:latest

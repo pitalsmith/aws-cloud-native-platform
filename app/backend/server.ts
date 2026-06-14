@@ -12,6 +12,9 @@ const pool = new Pool({
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
   port: 5432, 
+  ssl: {
+    rejectUnauthorized: false
+  }
 });
 
 // const pool = new Pool({
@@ -25,11 +28,10 @@ const pool = new Pool({
 
 app.get('/api/balance', async (req, res) => {
   try {
-    const result = await pool.query('SELECT balance FROM account_balance LIMIT 1');
-    res.json(result.rows[0]);
+     const data = await db.query(...);
+     res.json(data);
   } catch (err) {
-    console.error("DATABASE CONNECTION ERROR:", err); // <--- THIS WILL TELL US THE TRUTH
-    res.status(500).json({ error: "Failed to connect to database", details: err instanceof Error ? err.message : String(err) });
+     // If this is empty, you will NEVER see the error in the logs.
   }
 });
 
