@@ -12,11 +12,29 @@ const pool = new Pool({
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
   port: 5432, 
-  ssl: {
-    rejectUnauthorized: false
-  }
+  ssl: { rejectUnauthorized: false }
 });
 
+async function connectToDb() {
+  try {
+    await pool.query('SELECT 1'); // Simple heartbeat query
+    console.log("Database connection successful!");
+  } catch (err) {
+    console.error("Database connection failed, but app will continue running:", err);
+  }
+}
+
+connectToDb();
+
+app.get('/api/balance', async (req, res) => {
+  try {
+      const data = await pool.query('SELECT balance FROM accounts LIMIT 1');
+      res.json(data.rows);
+  } catch (err) {
+      console.error("Query Error:", err);
+      res.status(500).json({ error: "Database error", details: err.message });
+  }
+});
 // const pool = new Pool({
 //   host: 'localhost', // Changed from 127.0.0.1
 //   user: 'user',
@@ -26,16 +44,7 @@ const pool = new Pool({
 
 // });
 
-app.get('/api/balance', async (req, res) => {
-  try {
-      const data = await pool.query('SELECT * FROM accounts'); // Use your actual table name
-      res.json(data.rows);
-  } catch (err) {
-      // PRINT THE ACTUAL ERROR MESSAGE HERE
-      console.error("FULL DATABASE ERROR:", err); 
-      res.status(500).json({ error: "Database error", details: err.message });
-  }
-});
+
 
 // app.get('/api/balance', async (req, res) => {
 //   let client;
