@@ -15,6 +15,8 @@ function App() {
   const [amount, setAmount] = useState<string>('');
   const [transactions, setTransactions] = useState<Transaction[]>([]);
 
+  console.log("balance:", balance);
+
   // Load data from backend on startup
   useEffect(() => {
     fetchData();
