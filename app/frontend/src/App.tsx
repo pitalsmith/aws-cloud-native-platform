@@ -22,17 +22,6 @@ function App() {
     fetchData();
   }, []);
 
-
-  useEffect(() => {
-  fetchData(); // Initial load
-
-  const interval = setInterval(() => {
-    fetchData();
-  }, 2000); // Poll every 5 seconds
-
-  return () => clearInterval(interval); // Cleanup on unmount
-}, []);
-
   const fetchData = async () => {
     try {
       // 2. Updated to use BASE_URL
