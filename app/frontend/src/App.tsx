@@ -3,6 +3,9 @@ import type { ChangeEvent } from 'react';
 import axios from 'axios';
 import './App.css';
 
+
+const BASE_URL = "http://a9d66f2ee554e4bc889b98acb188321a-1651196171.us-east-1.elb.amazonaws.com";
+
 interface Transaction {
   id: number;
   type: 'deposit' | 'withdraw';
@@ -15,16 +18,15 @@ function App() {
   const [amount, setAmount] = useState<string>('');
   const [transactions, setTransactions] = useState<Transaction[]>([]);
 
-  // Load data from backend on startup
   useEffect(() => {
     fetchData();
   }, []);
 
   const fetchData = async () => {
     try {
-      const res = await axios.get('http://localhost:3000/api/balance');
+      // 2. Updated to use BASE_URL
+      const res = await axios.get(`${BASE_URL}/balance`);
       setBalance(Number(res.data.balance));
-     
     } catch (err) {
       console.error("Failed to fetch data", err);
     }
@@ -34,18 +36,17 @@ function App() {
     setAmount(e.target.value);
   };
 
-  // 2. Perform database update via POST
   const handleTransaction = async (type: 'deposit' | 'withdraw'): Promise<void> => {
     const val = parseFloat(amount);
     if (isNaN(val) || val <= 0) return;
 
     try {
-      await axios.post('http://localhost:3000/api/transaction', { 
+      // 3. Updated to use BASE_URL
+      await axios.post(`${BASE_URL}/transaction`, { 
         type: type === 'withdraw' ? 'withdrawal' : 'deposit', 
         amount: val 
       });
 
-      // Update UI after successful server response
       fetchData(); 
       
       const newTx: Transaction = { 
