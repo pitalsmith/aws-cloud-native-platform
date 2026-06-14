@@ -45,19 +45,19 @@ app.get('/api/balance', async (req, res) => {
 
 app.get('/balance', async (req, res) => {
   try {
-    // This executes your query
     const result = await pool.query('SELECT balance FROM account_balance LIMIT 1');
-    
-    // Check if we got data back
     if (result.rows.length > 0) {
-      // Send the balance back to the client as a JSON object
       res.json({ balance: result.rows[0].balance });
     } else {
       res.status(404).json({ error: 'No balance found' });
     }
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: 'Database query failed' });
+ } catch (err) {
+    let errorMessage = "An unknown error occurred";
+    if (err instanceof Error) {
+      errorMessage = err.message;
+    }
+    console.error("DEBUG ERROR:", errorMessage);
+    res.status(500).json({ error: 'Database query failed', details: errorMessage });
   }
 });
 
