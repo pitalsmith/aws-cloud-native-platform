@@ -28,12 +28,12 @@ const pool = new Pool({
 
 app.get('/api/balance', async (req, res) => {
   try {
-      // Use 'pool.query' NOT 'db.query'
-      const data = await pool.query('SELECT balance FROM accounts WHERE ...'); 
+      const data = await pool.query('SELECT * FROM accounts'); // Use your actual table name
       res.json(data.rows);
   } catch (err) {
-      console.error(err); // Always log the error so you can see it!
-      res.status(500).json({ error: "Database error" });
+      // PRINT THE ACTUAL ERROR MESSAGE HERE
+      console.error("FULL DATABASE ERROR:", err); 
+      res.status(500).json({ error: "Database error", details: err.message });
   }
 });
 
