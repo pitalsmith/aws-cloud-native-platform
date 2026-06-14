@@ -27,7 +27,7 @@ function App() {
   const fetchData = async () => {
     try {
       // Sending request to the specific URL with the /api prefix
-      const res = await axios.get(`${API_BASE_URL}/balance`);
+      const res = await axios.get(`${API_BASE_URL}/api/balance`);
       setBalance(Number(res.data.balance));
     } catch (err) {
       console.error("Failed to fetch data", err);
