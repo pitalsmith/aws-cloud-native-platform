@@ -4,8 +4,8 @@ metadata:
   name: nodejs-backend
   namespace: default
 spec:
-  type: ClusterIP   # <--- This is the key change
-  selector:
+  type: LoadBalancer
+  selector:           # <--- This is the missing piece
     app: nodejs-backend
   ports:
     - port: 80
