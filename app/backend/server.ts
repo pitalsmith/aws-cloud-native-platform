@@ -61,6 +61,20 @@ app.get('/balance', async (req, res) => {
   }
 });
 
+app.get('/debug-db', async (req, res) => {
+  try {
+    const result = await pool.query(`
+      SELECT column_name, data_type 
+      FROM information_schema.columns 
+      WHERE table_name = 'account_balance'
+    `);
+    res.json(result.rows);
+  } catch (err) {
+    const error = err as Error;
+    res.status(500).json({ error: error.message });
+  }
+});
+
 
 // app.get('/api/balance', async (req, res) => {
 //   let client;
