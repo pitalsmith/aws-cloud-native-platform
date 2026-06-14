@@ -11,7 +11,7 @@ const pool = new Pool({
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
-  port: 5432, // Ensure this matches your RDS port
+  port: 5432, 
 });
 
 // const pool = new Pool({
@@ -24,18 +24,28 @@ const pool = new Pool({
 // });
 
 app.get('/api/balance', async (req, res) => {
-  let client;
   try {
-    client = await pool.connect();
-    const result = await client.query('SELECT current_balance FROM account_balance WHERE id = 1');
-    res.json({ balance: result.rows[0].current_balance });
+    const result = await pool.query('SELECT balance FROM account_balance LIMIT 1');
+    res.json(result.rows[0]);
   } catch (err) {
-    console.error("Database Error:", err);
-    res.status(500).json({ error: "Failed to connect to database" });
-  } finally {
-    if (client) client.release(); 
+    console.error("DATABASE CONNECTION ERROR:", err); // <--- THIS WILL TELL US THE TRUTH
+    res.status(500).json({ error: "Failed to connect to database", details: err.message });
   }
 });
+
+// app.get('/api/balance', async (req, res) => {
+//   let client;
+//   try {
+//     client = await pool.connect();
+//     const result = await client.query('SELECT current_balance FROM account_balance WHERE id = 1');
+//     res.json({ balance: result.rows[0].current_balance });
+//   } catch (err) {
+//     console.error("Database Error:", err);
+//     res.status(500).json({ error: "Failed to connect to database" });
+//   } finally {
+//     if (client) client.release(); 
+//   }
+// });
 
 
 app.get('/api/balance', async (req, res) => {
