@@ -25,7 +25,7 @@ function App() {
   const fetchData = async () => {
     try {
       // 2. Updated to use BASE_URL
-      const res = await axios.get(`${BASE_URL}/balance`);
+      const res = await axios.get(`${BASE_URL}/api/balance`);
       setBalance(Number(res.data.balance));
     } catch (err) {
       console.error("Failed to fetch data", err);
@@ -42,7 +42,7 @@ function App() {
 
     try {
       // 3. Updated to use BASE_URL
-      await axios.post(`${BASE_URL}/transaction`, { 
+      await axios.post(`${BASE_URL}/api/transaction`, { 
         type: type === 'withdraw' ? 'withdrawal' : 'deposit', 
         amount: val 
       });
