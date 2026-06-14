@@ -29,7 +29,7 @@ app.get('/api/balance', async (req, res) => {
     res.json(result.rows[0]);
   } catch (err) {
     console.error("DATABASE CONNECTION ERROR:", err); // <--- THIS WILL TELL US THE TRUTH
-    res.status(500).json({ error: "Failed to connect to database", details: err.message });
+    res.status(500).json({ error: "Failed to connect to database", details: err instanceof Error ? err.message : String(err) });
   }
 });
 
@@ -89,4 +89,4 @@ app.get('/api/debug-data', async (req, res) => {
 });
 
 
-app.listen(3000, () => console.log('Backend running on port 3000'));
+app.listen(5000, () => console.log('Backend running on port 3000'));
