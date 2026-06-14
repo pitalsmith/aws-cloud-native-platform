@@ -4,7 +4,7 @@ import axios from 'axios';
 import './App.css';
 
 
-const BASE_URL = "http://a9d66f2ee554e4bc889b98acb188321a-1651196171.us-east-1.elb.amazonaws.com";
+const BASE_URL = "";
 
 interface Transaction {
   id: number;
