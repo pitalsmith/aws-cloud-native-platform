@@ -28,7 +28,7 @@ connectToDb();
 
 app.get('/api/balance', async (req, res) => {
   try {
-      const data = await pool.query('SELECT balance FROM accounts LIMIT 1');
+      const data = await pool.query('SELECT balance FROM account_balance LIMIT 1');
       res.json(data.rows);
 } catch (err) {
       // Check if err is an instance of Error
