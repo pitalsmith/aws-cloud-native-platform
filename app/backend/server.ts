@@ -67,4 +67,16 @@ app.post('/api/transaction', async (req, res) => {
 });
 
 
+app.get('/api/debug-data', async (req, res) => {
+  try {
+    // This queries the database from inside the AWS network
+    const result = await pool.query('SELECT * FROM account_balance');
+    res.json(result.rows);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Query failed" });
+  }
+});
+
+
 app.listen(3000, () => console.log('Backend running on port 3000'));
