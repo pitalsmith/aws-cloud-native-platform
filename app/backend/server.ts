@@ -41,15 +41,25 @@ app.get('/api/balance', async (req, res) => {
       }
   }
 });
-// const pool = new Pool({
-//   host: 'localhost', // Changed from 127.0.0.1
-//   user: 'user',
-//   password: 'password',
-//   database: 'banking_ledger',
-//   port: 5433,
 
-// });
 
+app.get('/balance', async (req, res) => {
+  try {
+    // This executes your query
+    const result = await pool.query('SELECT balance FROM account_balance LIMIT 1');
+    
+    // Check if we got data back
+    if (result.rows.length > 0) {
+      // Send the balance back to the client as a JSON object
+      res.json({ balance: result.rows[0].balance });
+    } else {
+      res.status(404).json({ error: 'No balance found' });
+    }
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Database query failed' });
+  }
+});
 
 
 // app.get('/api/balance', async (req, res) => {
