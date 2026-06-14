@@ -30,9 +30,15 @@ app.get('/api/balance', async (req, res) => {
   try {
       const data = await pool.query('SELECT balance FROM accounts LIMIT 1');
       res.json(data.rows);
-  } catch (err) {
-      console.error("Query Error:", err);
-      res.status(500).json({ error: "Database error", details: err.message });
+} catch (err) {
+      // Check if err is an instance of Error
+      if (err instanceof Error) {
+          console.error("FULL DATABASE ERROR:", err.message);
+          res.status(500).json({ error: "Database error", details: err.message });
+      } else {
+          console.error("Unknown error:", err);
+          res.status(500).json({ error: "Unknown database error" });
+      }
   }
 });
 // const pool = new Pool({
