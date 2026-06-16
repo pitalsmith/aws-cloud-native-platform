@@ -11,5 +11,5 @@ RUN npm install
 # Copy the rest of the code (including server.ts)
 COPY . .
 
-# Run your server.ts using npx ts-node
+# Run server.ts using npx ts-node
 CMD ["npx", "ts-node", "server.ts"]

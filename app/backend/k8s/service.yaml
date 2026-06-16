@@ -5,7 +5,7 @@ metadata:
   namespace: default
 spec:
   type: LoadBalancer
-  selector:           # <--- This is the missing piece
+  selector:          
     app: nodejs-backend
   ports:
     - port: 80
