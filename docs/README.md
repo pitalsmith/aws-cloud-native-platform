@@ -56,12 +56,11 @@ In modern cloud engineering, connecting services securely is as critical as the 
 * *Caption:* Behavior settings showing the `/api/*` path with `CachingDisabled`.
 > ![GitHub Actions Dashboard](https://github.com/pitalsmith/aws-cloud-native-platform/blob/cde1bfa6a339de2d27da0272a5a899a287108144/docs/assets/backend_assets/Cloudfront1.jpg)
 > ![GitHub Actions Dashboard](https://github.com/pitalsmith/aws-cloud-native-platform/blob/cde1bfa6a339de2d27da0272a5a899a287108144/docs/assets/backend_assets/Cloudfront2.jpg)
->  ![GitHub Actions Dashboard](https://github.com/pitalsmith/aws-cloud-native-platform/blob/cde1bfa6a339de2d27da0272a5a899a287108144/docs/assets/backend_assets/Cloudfront_Url.jpg)
 
 
 * **Amazon S3**
 * *Caption:* S3 bucket contents hosting the React production build.
-> ![GitHub Actions Dashboard]()
+> ![GitHub Actions Dashboard](https://github.com/pitalsmith/aws-cloud-native-platform/blob/cd4314902e86db992f4c73573f3094066dd4e0ae/docs/assets/backend_assets/s3_bucket.jpg)
 
 
 
@@ -69,12 +68,12 @@ In modern cloud engineering, connecting services securely is as critical as the 
 
 * **Ledger Dashboard**
 * *Caption:* The production UI showing real-time account balance and transaction status.
-> ![GitHub Actions Dashboard]()
+> ![GitHub Actions Dashboard](https://github.com/pitalsmith/aws-cloud-native-platform/blob/cd4314902e86db992f4c73573f3094066dd4e0ae/docs/assets/backend_assets/Cloudfront_Url.jpg)
 
 
 * **Database Verification**
 * *Caption:* Terminal output of a custom Node.js script querying the RDS PostgreSQL instance directly from the backend pod.
-> ![GitHub Actions Dashboard]()
+> ![GitHub Actions Dashboard](https://github.com/pitalsmith/aws-cloud-native-platform/blob/d75846cb2d237f3a2a18d2a2428a3c232f886c88/docs/assets/backend_assets/Rds.jpg)
 
 
 
@@ -180,6 +179,7 @@ kubectl get svc nodejs-backend
 ```
 
 Copy the `EXTERNAL-IP` and navigate to `http://<EXTERNAL-IP>:80` in your browser.
+> ![GitHub Actions Dashboard](https://github.com/pitalsmith/aws-cloud-native-platform/blob/d797bcd3b3b3d47a9c14c2709fae7f1dad34990e/docs/assets/backend_assets/svc.jpg)
 
 ---
 
