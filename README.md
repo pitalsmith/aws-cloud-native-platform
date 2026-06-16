@@ -103,7 +103,7 @@ https://github.com/pitalsmith/aws-cloud-native-platform/tree/deploy/backend
 
 Infrastructure monitoring and logging system.
 
-### 🔧 Includes:
+### Includes:
 
 * Prometheus monitoring
 * Grafana dashboards
@@ -151,7 +151,7 @@ Cloud DevOps Engineer | AWS | Terraform | Kubernetes
 
 ---
 
-# 📌 Note
+# Note
 
 This repository is continuously evolving with production-grade cloud infrastructure projects designed to demonstrate real-world DevOps and Cloud Architecture expertise.
 
