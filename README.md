@@ -1,181 +1,202 @@
-# Cloud Infrastructure Portfolio (Terraform | AWS | DevOps)
+# Ledger: Secure 3-Tier Financial Web Application
 
-This repository contains a collection of **real-world cloud infrastructure projects built using Terraform on AWS**.
+## Overview
 
-Each project is isolated in its own **Git branch**, demonstrating Cloud DevOps engineering skills including networking, CI/CD automation, Kubernetes (EKS), frontend delivery, backend deployment, and database architecture.
+**Ledger** is a production-grade, 3-tier financial web application designed to demonstrate secure transaction management in a cloud-native AWS environment. The application enables users to manage account balances with real-time accuracy, ensuring strict data integrity through ACID-compliant database transactions.
 
 ---
 
-# Available Projects
+## Why This Project Matters
 
-## Project 1: 3-Tier AWS Infrastructure (Dev Environment)
+In modern cloud engineering, connecting services securely is as critical as the application logic. **Ledger** addresses enterprise-level challenges:
 
-A modular **3-tier architecture on AWS** built with Terraform.
+* **Securing Distributed Traffic:** Engineered a private-to-public architecture where the backend is shielded from the internet, accessible only via a hardened CloudFront/Load Balancer proxy.
+* **Solving Caching Complexities:** Implemented custom CloudFront `CachingDisabled` policies to ensure real-time data consistency, preventing "stale data" common in distributed systems.
+* **Enterprise-Grade Consistency:** Utilized PostgreSQL transaction management (`BEGIN/COMMIT`) to ensure financial data remains consistent during concurrent operations.
+* **DevOps Automation:** Automated the full lifecycle via CI/CD, reducing human error and deployment downtime.
 
-### Includes:
+---
 
-* VPC with public & private subnets (Multi-AZ design)
-* Application Load Balancer (ALB)
-* Backend-ready infrastructure layer
-* Amazon RDS (PostgreSQL in private subnet)
-* Security groups and IAM roles
-* Modular Terraform design
+## Technical Stack
 
-### Architecture Focus:
+* **Frontend:** React (TypeScript), Amazon S3, Amazon CloudFront.
+* **Backend:** Node.js, Express, Docker.
+* **Infrastructure:** Amazon EKS (Kubernetes), AWS EC2 (Worker Nodes), AWS RDS (PostgreSQL).
+* **Registry:** Amazon ECR (Elastic Container Registry).
+* **CI/CD:** GitHub Actions.
 
-* Infrastructure as Code (Terraform)
-* Secure network segmentation
-* Scalable system architecture
-* Database isolation in private subnet
+---
 
-### 🔗 View Project
+### Application Demonstration
+<img src="https://github.com/pitalsmith/aws-cloud-native-platform/blob/0f3c30c6bf925523d94bf8056004f2b24edc65c1/docs/assets/backend_assets/Aws%20Cloud(1)%20(5).gif" width="100%" />
 
-Branch:
+## Project Screenshots
 
-```text id="p1"
-project-1-3tier-aws-infrastructure
+### Infrastructure & Deployment
+
+* **GitHub Actions (CI/CD)**
+* *Caption:* Automated pipeline showing successful build and push to ECR.
+> ![GitHub Actions Dashboard](https://github.com/pitalsmith/aws-cloud-native-platform/blob/cde1bfa6a339de2d27da0272a5a899a287108144/docs/assets/backend_assets/GitActions_Backend.jpg)
+
+
+* **Amazon ECR (Container Registry)**
+* *Caption:* Repository view showing versioned Docker images.
+> ![GitHub Actions Dashboard](https://github.com/pitalsmith/aws-cloud-native-platform/blob/cde1bfa6a339de2d27da0272a5a899a287108144/docs/assets/backend_assets/ECR.jpg)
+
+
+* **Amazon EKS (Kubernetes)**
+* *Caption:* Successful Backend Deployment. > Verified the application deployment using `kubectl get pods`. Configured to a single-replica architecture to optimize resource utilization within AWS Free Tier limitations, while ensuring the application remains in a stable Running and Ready state.
+> ![GitHub Actions Dashboard](https://github.com/pitalsmith/aws-cloud-native-platform/blob/cde1bfa6a339de2d27da0272a5a899a287108144/docs/assets/backend_assets/Pods.jpg)
+
+
+* **EC2 Nodes (Worker Nodes)**
+* *Caption:* EC2 console showing instances powering the EKS cluster.
+> ![GitHub Actions Dashboard](https://github.com/pitalsmith/aws-cloud-native-platform/blob/cde1bfa6a339de2d27da0272a5a899a287108144/docs/assets/backend_assets/Nodes1.jpg)
+
+
+
+* **Amazon CloudFront**
+* *Caption:* Behavior settings showing the `/api/*` path with `CachingDisabled`.
+> ![GitHub Actions Dashboard](https://github.com/pitalsmith/aws-cloud-native-platform/blob/cde1bfa6a339de2d27da0272a5a899a287108144/docs/assets/backend_assets/Cloudfront1.jpg)
+> ![GitHub Actions Dashboard](https://github.com/pitalsmith/aws-cloud-native-platform/blob/cde1bfa6a339de2d27da0272a5a899a287108144/docs/assets/backend_assets/Cloudfront2.jpg)
+
+
+* **Amazon S3**
+* *Caption:* S3 bucket contents hosting the React production build.
+> ![GitHub Actions Dashboard](https://github.com/pitalsmith/aws-cloud-native-platform/blob/cd4314902e86db992f4c73573f3094066dd4e0ae/docs/assets/backend_assets/s3_bucket.jpg)
+
+
+
+### Application & Data
+
+* **Ledger Dashboard**
+* *Caption:* The production UI showing real-time account balance and transaction status.
+> ![GitHub Actions Dashboard](https://github.com/pitalsmith/aws-cloud-native-platform/blob/cd4314902e86db992f4c73573f3094066dd4e0ae/docs/assets/backend_assets/Cloudfront_Url.jpg)
+
+
+* **Database Verification**
+* *Caption:* Terminal output of a custom Node.js script querying the RDS PostgreSQL instance directly from the backend pod.
+> ![GitHub Actions Dashboard](https://github.com/pitalsmith/aws-cloud-native-platform/blob/d75846cb2d237f3a2a18d2a2428a3c232f886c88/docs/assets/backend_assets/Rds.jpg)
+
+
+
+---
+
+## Architecture Highlights
+
+* **Reverse Proxying:** Configured CloudFront to proxy `/api/*` requests directly to the Load Balancer, eliminating "Mixed Content" security errors.
+* **Cache Strategy:** Implemented `CachingDisabled` policies on API routes to ensure real-time integrity while maintaining CDN performance for static assets.
+* **Network Security:** Utilized AWS IAM roles and Security Groups to restrict database access, ensuring the RDS instance is never publicly reachable from the internet.
+
+---
+
+## Challenges & Solutions
+* **Challenge: API Cache Stale Data** *
+
+* **Problem:** * CloudFront was caching the /api/balance responses, causing users to see old account balances even after a successful transaction.
+
+* **Solution:** * I configured a custom CloudFront Cache Policy with CachingDisabled specifically for the /api/* path. This forced the CDN to pass requests directly to the origin, ensuring 100% data freshness for all transactions.
+
+
+
+* **Challenge:** * Missing Database CLI Tools
+
+* **Problem:**  My container image was "slim" (for security), meaning psql was not available to verify production data.
+
+* **Solution:**  Instead of bloating the image, I utilized a Node.js runtime script executed within the Kubernetes pod (kubectl exec) to query the database using the internal application environment variables. This allowed for secure data verification without compromising container security.
+
+* **Challenge:**  Managing Database Connectivity
+
+* **Problem:**  Initial connection failures between the EKS pods and RDS due to VPC Security Group restrictions.
+
+* **Solution:**  I reconfigured the RDS Inbound Rules to explicitly allow traffic from the Security Group ID assigned to the EKS worker nodes, creating a secure, isolated communication path within the private subnet.
+
+
+---
+
+## How to Run This Project
+
+### Prerequisites
+
+* **AWS CLI** configured with appropriate permissions.
+* **`kubectl`** installed and configured to point to your EKS cluster.
+* **Node.js (v18+)** for local development.
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/pitalsmith/aws-cloud-native-platform.git
+cd aws-cloud-native-platform/app
+
 ```
 
----
+### 2. Environment Configuration
 
-## Project 2: CI/CD for Frontend (S3 + CloudFront)
+Create a `.env` file in the `app/` directory with the following variables:
 
-A fully automated **frontend deployment pipeline** using CI/CD with AWS S3 and CloudFront.
+```bash
+DB_HOST=<your-rds-endpoint>
+DB_USER=<your-db-username>
+DB_PASSWORD=<your-db-password>
+DB_NAME=<your-db-name>
+PORT=5000
 
-### Includes:
-
-* CI/CD pipeline (GitHub Actions / Jenkins)
-* Automated build & deployment of frontend assets
-* Amazon S3 for frontend hosting
-* CloudFront CDN for global distribution
-* Cache invalidation automation
-* Secure deployment workflow
-
-### Architecture Focus:
-
-* Continuous Integration & Deployment
-* Automated frontend delivery pipeline
-* Global content delivery via CDN
-* Secure and repeatable deployments
-
-### 🔗 View Project
-
-Branch:
-
-```text id="p2"
-project-2-frontend-ci-cd-s3-cloudfront
 ```
 
----
+### 3. Deploy to Kubernetes
 
-## Project 3: EKS Backend Deployment + Database
+Ensure your `kubectl` context is set to your EKS cluster, then apply the manifests:
 
-A production-style **containerized backend system deployed on Kubernetes (EKS)** with a managed database layer.
+```bash
+# Apply the Secret (ensure you have created this in K8s first)
+kubectl apply -f k8s/secrets.yaml
 
-### Includes:
+# Apply the Deployment
+kubectl apply -f k8s/deployment.yaml
 
-* AWS EKS cluster (managed Kubernetes)
-* Backend deployment (containerized services)
-* Kubernetes deployments & services
-* Auto-scaling configuration (HPA-ready)
-* Amazon RDS database (PostgreSQL/MySQL)
-* Private subnet database architecture
-* IAM roles for service access (IRSA-ready)
+# Apply the Service
+kubectl apply -f k8s/service.yaml
 
-### Architecture Focus:
-
-* Kubernetes-based backend deployment
-* Scalable microservices architecture
-* Secure database integration
-* Cloud-native application design
-
-### 🔗 View Project
-
-Branch:
-
-```text id="p3"
-project-3-eks-backend-database
 ```
 
----
+### 4. Verify Deployment
 
-## Project 4: Multi-Environment Infrastructure
+Monitor the rollout status of your backend:
 
-Dev, staging, and production infrastructure management using Terraform.
+```bash
+# Watch pods transition to 'Running'
+kubectl get pods -w
 
-### 🔧 Includes:
+# Verify the deployment rollout
+kubectl rollout status deployment/nodejs-backend
 
-* Environment separation (dev/staging/prod)
-* Remote Terraform state (S3 + DynamoDB locking)
-* Infrastructure promotion workflow
-* Reusable modular architecture
-
-### 🔗 View Project
-
-Branch:
-
-```text id="p4"
-project-4-multi-env-infra
 ```
 
----
+### 5. Access the Application
+**Option A: Public Access (Load Balancer)**
+Retrieve your Load Balancer URL:
 
-## Project 5: Monitoring & Observability Stack
+```bash
+kubectl get svc nodejs-backend
 
-Infrastructure monitoring and logging system.
-
-### 🔧 Includes:
-
-* Prometheus monitoring
-* Grafana dashboards
-* AWS CloudWatch integration
-* Centralized logging architecture
-
-### 🔗 View Project
-
-Branch:
-
-```text id="p5"
-project-5-monitoring-observability
 ```
 
----
-
-# Architecture Principles Used
-
-* Infrastructure as Code (Terraform)
-* CI/CD automation workflows
-* Cloud-native Kubernetes architecture
-* Modular and reusable infrastructure design
-* Security-first architecture (least privilege IAM)
-* High availability and scalability principles
+Copy the `EXTERNAL-IP` and navigate to `http://<EXTERNAL-IP>:80` in your browser.
+> ![GitHub Actions Dashboard](https://github.com/pitalsmith/aws-cloud-native-platform/blob/d797bcd3b3b3d47a9c14c2709fae7f1dad34990e/docs/assets/backend_assets/svc.jpg)
 
 ---
+**Option B (Optional): Local Testing (Port Forwarding)**
+If you want to access the application instantly on your local machine for testing/debugging, run:
 
-#  How to Navigate This Repo
-
-Each project is isolated in its own branch:
-
-```text id="nav1"
-main → portfolio index (this README)
-project-1-* → 3-tier infrastructure
-project-2-* → frontend CI/CD (S3 + CloudFront)
-project-3-* → EKS backend + database
-project-4-* → multi-environment infra
-project-5-* → monitoring & observability
+```bash
+kubectl port-forward svc/nodejs-backend 5000:5000
 ```
+You can then access your API at http://localhost:5000 in your browser or Postman.
+
+
+## Future Enhancements
+
+* **Authentication:** Integration with Amazon Cognito for secure User Login and JWT-based session management.
+* **Monitoring:** Adding Prometheus and Grafana for real-time observability of pod health and transaction latency.
 
 ---
-
-#  Author
-
-**Peter Atunde O**
-
-Cloud DevOps Engineer | AWS | Terraform | Kubernetes
-
----
-
-# 📌 Note
-
-This repository is continuously evolving with production-grade cloud infrastructure projects designed to demonstrate real-world DevOps and Cloud Architecture expertise.
-
