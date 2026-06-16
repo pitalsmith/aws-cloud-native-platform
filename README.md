@@ -8,7 +8,7 @@ Each project is isolated in its own **Git branch**, demonstrating Cloud DevOps e
 
 # Available Projects
 
-## Project 1: 3-Tier AWS Infrastructure (Dev Environment)
+## Project 1: 3-Tier AWS Infrastructure With Terraform (Dev Environment)
 
 A modular **3-tier architecture on AWS** built with Terraform.
 
@@ -96,30 +96,10 @@ Branch:deploy/backend
 https://github.com/pitalsmith/aws-cloud-native-platform/tree/deploy/backend
 ```
 
----
-
-## Project 4: Multi-Environment Infrastructure using Terraform
-
-Dev, staging, and production infrastructure management using Terraform.
-
-### 🔧 Includes:
-
-* Environment separation (dev/staging/prod)
-* Remote Terraform state (S3 + DynamoDB locking)
-* Infrastructure promotion workflow
-* Reusable modular architecture
-
-### 🔗 [View Project 4]().
-
-Branch:
-
-```text id="p4"
-project-4-multi-env-infra
-```
 
 ---
 
-## Project 5: Monitoring & Observability Stack
+## Project 4: Monitoring & Observability Stack
 
 Infrastructure monitoring and logging system.
 
@@ -127,15 +107,13 @@ Infrastructure monitoring and logging system.
 
 * Prometheus monitoring
 * Grafana dashboards
-* AWS CloudWatch integration
-* Centralized logging architecture
 
-### 🔗 [View Project 5]().
+### 🔗 [View Project 4](https://github.com/pitalsmith/High_Availability/blob/monitoring-and-observability/docs/monitoring-and-observability/README.md).
 
 Branch:
 
 ```text id="p5"
-project-5-monitoring-observability
+https://github.com/pitalsmith/High_Availability/blob/monitoring-and-observability/docs/monitoring-and-observability/README.md
 ```
 
 ---
