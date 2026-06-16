@@ -63,8 +63,8 @@ A fully automated **frontend deployment pipeline** using CI/CD with AWS S3 and C
 Branch: deploy/frontend
 
 ```text id="p2"
-https://github.com/pitalsmith/aws-cloud-native-platform/tree/deploy/frontend```
-
+https://github.com/pitalsmith/aws-cloud-native-platform/tree/deploy/frontend
+```
 ---
 
 ## Project 3: EKS Backend Deployment + Database
