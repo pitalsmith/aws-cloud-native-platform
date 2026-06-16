@@ -93,13 +93,13 @@ In modern cloud engineering, connecting services securely is as critical as the 
 ## Challenges & Solutions
 * **Challenge: API Cache Stale Data** *
 
-* **Problem:** * CloudFront was caching the /api/balance responses, causing users to see old account balances even after a successful transaction.
+* **Problem:** CloudFront was caching the /api/balance responses, causing users to see old account balances even after a successful transaction.
 
-* **Solution:** * I configured a custom CloudFront Cache Policy with CachingDisabled specifically for the /api/* path. This forced the CDN to pass requests directly to the origin, ensuring 100% data freshness for all transactions.
+* **Solution:** I configured a custom CloudFront Cache Policy with CachingDisabled specifically for the /api/* path. This forced the CDN to pass requests directly to the origin, ensuring 100% data freshness for all transactions.
 
 
 
-* **Challenge:** * Missing Database CLI Tools
+* **Challenge:** Missing Database CLI Tools
 
 * **Problem:**  My container image was "slim" (for security), meaning psql was not available to verify production data.
 
