@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nodejs-backend
+  labels:
+    app: nodejs-backend
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: nodejs-backend
+  template:
+    metadata:
+      labels:
+        app: nodejs-backend
+    spec:
+      hostAliases:
+      - ip: "10.0.11.116" # <--- RDS PRIVATE IP
+        hostnames:
+        - "terraform-20260612074353910200000004.c0de0qocu6j6.us-east-1.rds.amazonaws.com"
+      containers:
+      - name: backend
+        image: 763054201983.dkr.ecr.us-east-1.amazonaws.com/backend-api:latest
+        ports:
+        - containerPort: 5000
+        env:
+        - name: DB_HOST
+          valueFrom:
+            secretKeyRef:
+              name: rds-db-secrets
+              key: database_host
+        - name: DB_USER
+          valueFrom:
+            secretKeyRef:
+              name: rds-db-secrets
+              key: database_user
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: rds-db-secrets
+              key: database_password
+        - name: DB_NAME
+          valueFrom:
+            secretKeyRef:
+              name: rds-db-secrets
+              key: database_name
+        - name: PORT
+          value: "5000"

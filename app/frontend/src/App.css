@@ -1,0 +1,17 @@
+.app-container { max-width: 400px; margin: 2rem auto; font-family: sans-serif; padding: 1rem; }
+.balance-card { padding: 2rem; background: #f4f4f9; border-radius: 12px; text-align: center; }
+.action-panel { margin: 2rem 0; display: flex; flex-direction: column; gap: 10px; }
+input { padding: 10px; border: 1px solid #ccc; border-radius: 6px; }
+.button-group { display: flex; gap: 10px; }
+button { flex: 1; padding: 10px; cursor: pointer; border: none; border-radius: 6px; color: white; }
+.btn-deposit { background: #27ae60; }
+.btn-withdraw { background: #e74c3c; }
+.tx-item { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #eee; }
+.deposit { color: #27ae60; }
+.withdraw { color: #e74c3c; }
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}

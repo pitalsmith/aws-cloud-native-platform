@@ -1,302 +1,202 @@
-# AWS Cloud-Native Platform
+# Ledger: Secure 3-Tier Financial Web Application
 
-## **Scalable 3-Tier Infrastructure using Terraform, AWS EKS, and PostgreSQL**
+## Overview
 
----
-
-# Project Overview
-
-This project demonstrates the design and deployment of a **production-grade AWS cloud-native infrastructure** using **Terraform (Infrastructure as Code)**.
-
-It implements a fully functional **3-tier architecture**:
-
-* **Frontend Layer** (future: React app on S3 + CloudFront)
-* **Backend Layer** (Node.js API running on AWS EKS)
-* **Database Layer** (Multi AZ Amazon RDS PostgreSQL)
-* **Networking Layer** (Custom VPC with public and private subnets)
-
-The goal is to simulate a real-world **scalable cloud-native system** used in modern DevOps environments.
+**Ledger** is a production-grade, 3-tier financial web application designed to demonstrate secure transaction management in a cloud-native AWS environment. The application enables users to manage account balances with real-time accuracy, ensuring strict data integrity through ACID-compliant database transactions.
 
 ---
 
-# Architecture Overview
+## Why This Project Matters
 
-## System Architecture
+In modern cloud engineering, connecting services securely is as critical as the application logic. **Ledger** addresses enterprise-level challenges:
 
-
-> ![GitHub Actions Dashboard](https://github.com/pitalsmith/aws-cloud-native-platform/blob/66cbf7d4e60620fd61f5ecc6f7080f9361302e29/docs/assets/AWS%20Native%20Cloud1.drawio.svg)
-
----
-
-## Network Architecture
-
-```text id="r4x0b3"
-VPC (10.0.0.0/16)
-│
-├── Public Subnets
-│   ├── Application Load Balancer
-│   ├── NAT Gateway
-│
-├── Private Subnets
-│   ├── EKS Worker Nodes
-│   ├── RDS Database
-```
+* **Securing Distributed Traffic:** Engineered a private-to-public architecture where the backend is shielded from the internet, accessible only via a hardened CloudFront/Load Balancer proxy.
+* **Solving Caching Complexities:** Implemented custom CloudFront `CachingDisabled` policies to ensure real-time data consistency, preventing "stale data" common in distributed systems.
+* **Enterprise-Grade Consistency:** Utilized PostgreSQL transaction management (`BEGIN/COMMIT`) to ensure financial data remains consistent during concurrent operations.
+* **DevOps Automation:** Automated the full lifecycle via CI/CD, reducing human error and deployment downtime.
 
 ---
 
-# Tech Stack
+## Technical Stack
 
-* Terraform (Infrastructure as Code)
-* AWS EKS (Kubernetes)
-* AWS RDS (PostgreSQL)
-* AWS VPC Networking
-* AWS ALB (Load Balancer)
-* IAM (Identity & Access Management)
-* Kubernetes (Container Orchestration)
+* **Frontend:** React (TypeScript), Amazon S3, Amazon CloudFront.
+* **Backend:** Node.js, Express, Docker.
+* **Infrastructure:** Amazon EKS (Kubernetes), AWS EC2 (Worker Nodes), AWS RDS (PostgreSQL).
+* **Registry:** Amazon ECR (Elastic Container Registry).
+* **CI/CD:** GitHub Actions.
 
 ---
 
-# Infrastructure Components
+### Application Demonstration
+<img src="https://github.com/pitalsmith/aws-cloud-native-platform/blob/0f3c30c6bf925523d94bf8056004f2b24edc65c1/docs/assets/backend_assets/Aws%20Cloud(1)%20(5).gif" width="100%" />
 
-## 1. Networking Layer
+## Project Screenshots
 
-* Custom VPC (10.0.0.0/16)
-* Public and Private Subnets across multiple AZs
-* Internet Gateway for public access
-* NAT Gateway for private subnet outbound traffic
-* Route Tables for traffic control
+### Infrastructure & Deployment
 
----
+* **GitHub Actions (CI/CD)**
+* *Caption:* Automated pipeline showing successful build and push to ECR.
+> ![GitHub Actions Dashboard](https://github.com/pitalsmith/aws-cloud-native-platform/blob/cde1bfa6a339de2d27da0272a5a899a287108144/docs/assets/backend_assets/GitActions_Backend.jpg)
 
-## 2. Kubernetes Layer (EKS)
 
-* Managed Kubernetes Cluster
-* EC2 Worker Node Group (Auto Scaling)
-* Core system pods (CoreDNS, kube-proxy, AWS CNI)
-* IAM role-based node authentication
-* Multi-AZ deployment for high availability
+* **Amazon ECR (Container Registry)**
+* *Caption:* Repository view showing versioned Docker images.
+> ![GitHub Actions Dashboard](https://github.com/pitalsmith/aws-cloud-native-platform/blob/cde1bfa6a339de2d27da0272a5a899a287108144/docs/assets/backend_assets/ECR.jpg)
 
----
 
-## 3. Backend Layer
+* **Amazon EKS (Kubernetes)**
+* *Caption:* Successful Backend Deployment. > Verified the application deployment using `kubectl get pods`. Configured to a single-replica architecture to optimize resource utilization within AWS Free Tier limitations, while ensuring the application remains in a stable Running and Ready state.
+> ![GitHub Actions Dashboard](https://github.com/pitalsmith/aws-cloud-native-platform/blob/cde1bfa6a339de2d27da0272a5a899a287108144/docs/assets/backend_assets/Pods.jpg)
 
-* Node.js API deployed on Kubernetes
-* Managed via Terraform Kubernetes provider
-* Exposed via AWS Application Load Balancer
-* Multiple pods for scalability and fault tolerance
 
----
+* **EC2 Nodes (Worker Nodes)**
+* *Caption:* EC2 console showing instances powering the EKS cluster.
+> ![GitHub Actions Dashboard](https://github.com/pitalsmith/aws-cloud-native-platform/blob/cde1bfa6a339de2d27da0272a5a899a287108144/docs/assets/backend_assets/Nodes1.jpg)
 
-## 4. Database Layer
 
-* Amazon RDS PostgreSQL instance
-* Deployed inside private subnet
-* No public internet access
-* Secure backend-to-database communication
 
----
+* **Amazon CloudFront**
+* *Caption:* Behavior settings showing the `/api/*` path with `CachingDisabled`.
+> ![GitHub Actions Dashboard](https://github.com/pitalsmith/aws-cloud-native-platform/blob/cde1bfa6a339de2d27da0272a5a899a287108144/docs/assets/backend_assets/Cloudfront1.jpg)
+> ![GitHub Actions Dashboard](https://github.com/pitalsmith/aws-cloud-native-platform/blob/cde1bfa6a339de2d27da0272a5a899a287108144/docs/assets/backend_assets/Cloudfront2.jpg)
 
-# Visual Proof of Deployment
 
-## EKS Cluster
+* **Amazon S3**
+* *Caption:* S3 bucket contents hosting the React production build.
+> ![GitHub Actions Dashboard](https://github.com/pitalsmith/aws-cloud-native-platform/blob/cd4314902e86db992f4c73573f3094066dd4e0ae/docs/assets/backend_assets/s3_bucket.jpg)
 
-### Cluster Overview (AWS Console)
 
-> The EKS cluster is successfully deployed and in ACTIVE state, confirming the managed Kubernetes control plane is operational.
-> ![GitHub Actions Dashboard](https://github.com/pitalsmith/aws-cloud-native-platform/blob/a40d4b243ad49ddd4da594caa73808787b6f1c36/docs/assets/eks_cluster.JPG)
 
----
+### Application & Data
 
-### Worker Nodes
+* **Ledger Dashboard**
+* *Caption:* The production UI showing real-time account balance and transaction status.
+> ![GitHub Actions Dashboard](https://github.com/pitalsmith/aws-cloud-native-platform/blob/cd4314902e86db992f4c73573f3094066dd4e0ae/docs/assets/backend_assets/Cloudfront_Url.jpg)
 
-> Two worker nodes are successfully registered and connected to the Kubernetes cluster, confirming proper IAM configuration and cluster-node communication.
-> ![GitHub Actions Dashboard](https://github.com/pitalsmith/aws-cloud-native-platform/blob/a40d4b243ad49ddd4da594caa73808787b6f1c36/docs/assets/Nodes_2.JPG)
+
+* **Database Verification**
+* *Caption:* Terminal output of a custom Node.js script querying the RDS PostgreSQL instance directly from the backend pod.
+> ![GitHub Actions Dashboard](https://github.com/pitalsmith/aws-cloud-native-platform/blob/d75846cb2d237f3a2a18d2a2428a3c232f886c88/docs/assets/backend_assets/Rds.jpg)
+
+
 
 ---
 
-## Kubernetes Workloads
+## Architecture Highlights
 
-### Pods Running
-
-```bash id="p7lj2z"
-kubectl get pods -A
-```
-
-> All Kubernetes system and application pods are running successfully, including backend API pods and core system services (CoreDNS, kube-proxy, AWS CNI).
-> ![GitHub Actions Dashboard](https://github.com/pitalsmith/aws-cloud-native-platform/blob/a40d4b243ad49ddd4da594caa73808787b6f1c36/docs/assets/Nodes_1.JPG)
+* **Reverse Proxying:** Configured CloudFront to proxy `/api/*` requests directly to the Load Balancer, eliminating "Mixed Content" security errors.
+* **Cache Strategy:** Implemented `CachingDisabled` policies on API routes to ensure real-time integrity while maintaining CDN performance for static assets.
+* **Network Security:** Utilized AWS IAM roles and Security Groups to restrict database access, ensuring the RDS instance is never publicly reachable from the internet.
 
 ---
 
-### Nodes Status
+## Challenges & Solutions
+* **Challenge: API Cache Stale Data** *
 
-```bash id="4s5m0x"
-kubectl get nodes
-```
+* **Problem:** * CloudFront was caching the /api/balance responses, causing users to see old account balances even after a successful transaction.
 
-> Kubernetes worker nodes are fully operational and in Ready state.
-> ![GitHub Actions Dashboard](https://github.com/pitalsmith/aws-cloud-native-platform/blob/a40d4b243ad49ddd4da594caa73808787b6f1c36/docs/assets/Nodes_1b.JPG)
+* **Solution:** * I configured a custom CloudFront Cache Policy with CachingDisabled specifically for the /api/* path. This forced the CDN to pass requests directly to the origin, ensuring 100% data freshness for all transactions.
+
+
+
+* **Challenge:** * Missing Database CLI Tools
+
+* **Problem:**  My container image was "slim" (for security), meaning psql was not available to verify production data.
+
+* **Solution:**  Instead of bloating the image, I utilized a Node.js runtime script executed within the Kubernetes pod (kubectl exec) to query the database using the internal application environment variables. This allowed for secure data verification without compromising container security.
+
+* **Challenge:**  Managing Database Connectivity
+
+* **Problem:**  Initial connection failures between the EKS pods and RDS due to VPC Security Group restrictions.
+
+* **Solution:**  I reconfigured the RDS Inbound Rules to explicitly allow traffic from the Security Group ID assigned to the EKS worker nodes, creating a secure, isolated communication path within the private subnet.
+
 
 ---
 
-## Load Balancer
+## How to Run This Project
 
-### ALB Dashboard
+### Prerequisites
 
+* **AWS CLI** configured with appropriate permissions.
+* **`kubectl`** installed and configured to point to your EKS cluster.
+* **Node.js (v18+)** for local development.
 
-> Application Load Balancer routes traffic to backend services running in EKS.
-> ![GitHub Actions Dashboard](https://github.com/pitalsmith/aws-cloud-native-platform/blob/a40d4b243ad49ddd4da594caa73808787b6f1c36/docs/assets/ALB.JPG)
+### 1. Clone the Repository
 
----
-
-## Multi AZ Database (RDS PostgreSQL)
-
-### RDS Instance
-
-
-> PostgreSQL database is deployed in a private subnet and securely accessed by backend services.
-> ![GitHub Actions Dashboard](https://github.com/pitalsmith/aws-cloud-native-platform/blob/eb8bb3faa4b2f161a3e86f162297ffe4b324dfbf/docs/assets/a2.JPG)
->  ![GitHub Actions Dashboard](https://github.com/pitalsmith/aws-cloud-native-platform/blob/eb8bb3faa4b2f161a3e86f162297ffe4b324dfbf/docs/assets/a1.JPG)
-> > Instance endpoint
-> ![GitHub Actions Dashboard](https://github.com/pitalsmith/aws-cloud-native-platform/blob/4781a6c9579916f305708e9c30f1fe699d638d0c/docs/assets/RDS_endpoint.JPG)
-
----
-
-## Network Infrastructure
-
-### VPC Layout
-
-> > ![GitHub Actions Dashboard](https://github.com/pitalsmith/aws-cloud-native-platform/blob/62c3445692a85cabf992ab9cefb3726b9f07274e/docs/assets/vpc_1.JPG)
-
----
-
-# How to Run This Project
-
-## 1. Clone Repository
-
-```bash id="z8q2v1"
+```bash
 git clone https://github.com/pitalsmith/aws-cloud-native-platform.git
-cd aws-cloud-native-platform/terraform/environments/dev
+cd aws-cloud-native-platform/app
+
 ```
 
----
+### 2. Environment Configuration
 
-## 2. Configure AWS Credentials
+Create a `.env` file in the `app/` directory with the following variables:
 
-```bash id="a1b2c3"
-aws configure
+```bash
+DB_HOST=<your-rds-endpoint>
+DB_USER=<your-db-username>
+DB_PASSWORD=<your-db-password>
+DB_NAME=<your-db-name>
+PORT=5000
+
 ```
 
----
+### 3. Deploy to Kubernetes
 
-## 3. Initialize Terraform
+Ensure your `kubectl` context is set to your EKS cluster, then apply the manifests:
 
-```bash id="t4r5f6"
-terraform init
+```bash
+# Apply the Secret (ensure you have created this in K8s first)
+kubectl apply -f k8s/secrets.yaml
+
+# Apply the Deployment
+kubectl apply -f k8s/deployment.yaml
+
+# Apply the Service
+kubectl apply -f k8s/service.yaml
+
 ```
 
----
+### 4. Verify Deployment
 
-## 4. Validate Configuration
+Monitor the rollout status of your backend:
 
-```bash id="v7w8x9"
-terraform validate
+```bash
+# Watch pods transition to 'Running'
+kubectl get pods -w
+
+# Verify the deployment rollout
+kubectl rollout status deployment/nodejs-backend
+
 ```
 
----
+### 5. Access the Application
+**Option A: Public Access (Load Balancer)**
+Retrieve your Load Balancer URL:
 
-## 5. Preview Deployment
+```bash
+kubectl get svc nodejs-backend
 
-```bash id="p0q1r2"
-terraform plan
 ```
 
+Copy the `EXTERNAL-IP` and navigate to `http://<EXTERNAL-IP>:80` in your browser.
+> ![GitHub Actions Dashboard](https://github.com/pitalsmith/aws-cloud-native-platform/blob/d797bcd3b3b3d47a9c14c2709fae7f1dad34990e/docs/assets/backend_assets/svc.jpg)
+
 ---
+**Option B (Optional): Local Testing (Port Forwarding)**
+If you want to access the application instantly on your local machine for testing/debugging, run:
 
-## 6. Deploy Infrastructure
-
-```bash id="d3e4f5"
-terraform apply -auto-approve
+```bash
+kubectl port-forward svc/nodejs-backend 5000:5000
 ```
+You can then access your API at http://localhost:5000 in your browser or Postman.
 
----
 
-## 7. Verify Kubernetes Cluster
+## Future Enhancements
 
-```bash id="k8s123"
-kubectl get nodes
-kubectl get pods -A
-```
-
----
-
-## 8. Destroy Infrastructure (Optional)
-
-```bash id="destroy1"
-terraform destroy -auto-approve
-```
-
----
-
-# Final Outcome
-
-✔ Fully deployed AWS cloud-native infrastructure
-✔ Working Kubernetes cluster with active nodes
-✔ Backend API successfully running on EKS
-✔ PostgreSQL database deployed in private subnet
-✔ Application Load Balancer routing traffic externally
-✔ Secure multi-tier AWS architecture implemented
-
----
-
-# Key Learnings
-
-* AWS EKS cluster design and deployment
-* Kubernetes workload management
-* Infrastructure as Code with Terraform
-* IAM roles and security policies
-* VPC networking (public/private architecture)
-* Debugging real-world cloud infrastructure issues
-
----
-
-# Key Engineering Challenges
-
-## 1. EKS Node Group Registration Failure
-
-Worker nodes initially failed to join the Kubernetes cluster.
-
-**Solution:** Correct IAM roles and AWS EKS policies fixed authentication issues.
-
----
-
-## 2. Terraform State Drift & Conflicts
-
-Infrastructure mismatches caused deployment inconsistencies.
-
-**Solution:** Resolved state alignment issues with AWS resources.
-
----
-
-## 3. AWS Service Constraints (RDS & Networking)
-
-Issues with PostgreSQL versions, reserved usernames, and NAT route conflicts.
-
-**Solution:** Adjusted configuration to comply with AWS service limitations.
-
----
-
-## 4. Kubernetes Authentication Issue
-
-Initial restricted access to cluster resources.
-
-**Solution:** Configured `aws-auth` ConfigMap for IAM-to-Kubernetes mapping.
-
----
-
-# Summary
-
-This project demonstrates a complete **end-to-end cloud-native AWS architecture**, built using Terraform and modern DevOps practices.
-
-It simulates real production infrastructure used in scalable applications and distributed systems.
+* **Authentication:** Integration with Amazon Cognito for secure User Login and JWT-based session management.
+* **Monitoring:** Adding Prometheus and Grafana for real-time observability of pod health and transaction latency.
 
 ---

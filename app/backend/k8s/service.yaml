@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: nodejs-backend
+  namespace: default
+spec:
+  type: LoadBalancer
+  selector:          
+    app: nodejs-backend
+  ports:
+    - port: 80
+      targetPort: 5000
+      protocol: TCP
