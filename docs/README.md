@@ -98,6 +98,81 @@ In modern cloud engineering, connecting services securely is as critical as the 
 
 * **Solution:**  I reconfigured the RDS Inbound Rules to explicitly allow traffic from the Security Group ID assigned to the EKS worker nodes, creating a secure, isolated communication path within the private subnet.
 
+
+---
+
+## How to Run This Project
+
+### Prerequisites
+
+* **AWS CLI** configured with appropriate permissions.
+* **`kubectl`** installed and configured to point to your EKS cluster.
+* **Node.js (v18+)** for local development.
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/pitalsmith/aws-cloud-native-platform.git
+cd aws-cloud-native-platform/app
+
+```
+
+### 2. Environment Configuration
+
+Create a `.env` file in the `app/` directory with the following variables:
+
+```bash
+DB_HOST=<your-rds-endpoint>
+DB_USER=<your-db-username>
+DB_PASSWORD=<your-db-password>
+DB_NAME=<your-db-name>
+PORT=5000
+
+```
+
+### 3. Deploy to Kubernetes
+
+Ensure your `kubectl` context is set to your EKS cluster, then apply the manifests:
+
+```bash
+# Apply the Secret (ensure you have created this in K8s first)
+kubectl apply -f k8s/secrets.yaml
+
+# Apply the Deployment
+kubectl apply -f k8s/deployment.yaml
+
+# Apply the Service
+kubectl apply -f k8s/service.yaml
+
+```
+
+### 4. Verify Deployment
+
+Monitor the rollout status of your backend:
+
+```bash
+# Watch pods transition to 'Running'
+kubectl get pods -w
+
+# Verify the deployment rollout
+kubectl rollout status deployment/nodejs-backend
+
+```
+
+### 5. Access the Application
+
+Retrieve your Load Balancer URL:
+
+```bash
+kubectl get svc nodejs-backend
+
+```
+
+Copy the `EXTERNAL-IP` and navigate to `http://<EXTERNAL-IP>:80` in your browser.
+
+---
+
+
 ## Future Enhancements
 
 * **Authentication:** Integration with Amazon Cognito for secure User Login and JWT-based session management.
