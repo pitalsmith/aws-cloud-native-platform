@@ -28,12 +28,12 @@ A modular **3-tier architecture on AWS** built with Terraform.
 * Scalable system architecture
 * Database isolation in private subnet
 
-### 🔗 View Project
+### 🔗 [View Project 1](https://github.com/pitalsmith/aws-cloud-native-platform/tree/main/docs).
 
-Branch:
+Branch: Main
 
 ```text id="p1"
-project-1-3tier-aws-infrastructure
+https://github.com/pitalsmith/aws-cloud-native-platform/tree/main
 ```
 
 ---
@@ -58,13 +58,12 @@ A fully automated **frontend deployment pipeline** using CI/CD with AWS S3 and C
 * Global content delivery via CDN
 * Secure and repeatable deployments
 
-### 🔗 View Project
+### 🔗 [View Project 2](https://github.com/pitalsmith/aws-cloud-native-platform/tree/deploy/frontend).
 
-Branch:
+Branch: deploy/frontend
 
 ```text id="p2"
-project-2-frontend-ci-cd-s3-cloudfront
-```
+https://github.com/pitalsmith/aws-cloud-native-platform/tree/deploy/frontend```
 
 ---
 
@@ -89,12 +88,12 @@ A production-style **containerized backend system deployed on Kubernetes (EKS)**
 * Secure database integration
 * Cloud-native application design
 
-### 🔗 View Project
+### 🔗 [View Project 2](https://github.com/pitalsmith/aws-cloud-native-platform/tree/deploy/backend).
 
-Branch:
+Branch:deploy/backend
 
 ```text id="p3"
-project-3-eks-backend-database
+https://github.com/pitalsmith/aws-cloud-native-platform/tree/deploy/backend
 ```
 
 ---
@@ -110,7 +109,7 @@ Dev, staging, and production infrastructure management using Terraform.
 * Infrastructure promotion workflow
 * Reusable modular architecture
 
-### 🔗 View Project
+### 🔗 [View Project 2]().
 
 Branch:
 
@@ -131,7 +130,7 @@ Infrastructure monitoring and logging system.
 * AWS CloudWatch integration
 * Centralized logging architecture
 
-### 🔗 View Project
+### 🔗 [View Project 2]().
 
 Branch:
 
