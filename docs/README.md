@@ -90,7 +90,7 @@ In modern cloud engineering, connecting services securely is as critical as the 
 
 ---
 
-## 🛠 Challenges & Solutions
+## Challenges & Solutions
 * **Challenge: API Cache Stale Data** *
 
 * **Problem:** * CloudFront was caching the /api/balance responses, causing users to see old account balances even after a successful transaction.
@@ -173,7 +173,7 @@ kubectl rollout status deployment/nodejs-backend
 ```
 
 ### 5. Access the Application
-
+**Option A: Public Access (Load Balancer)**
 Retrieve your Load Balancer URL:
 
 ```bash
@@ -185,6 +185,13 @@ Copy the `EXTERNAL-IP` and navigate to `http://<EXTERNAL-IP>:80` in your browser
 > ![GitHub Actions Dashboard](https://github.com/pitalsmith/aws-cloud-native-platform/blob/d797bcd3b3b3d47a9c14c2709fae7f1dad34990e/docs/assets/backend_assets/svc.jpg)
 
 ---
+**Option B (Optional): Local Testing (Port Forwarding)**
+If you want to access the application instantly on your local machine for testing/debugging, run:
+
+```bash
+kubectl port-forward svc/nodejs-backend 5000:5000
+```
+You can then access your API at http://localhost:5000 in your browser or Postman.
 
 
 ## Future Enhancements
