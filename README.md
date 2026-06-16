@@ -88,7 +88,7 @@ A production-style **containerized backend system deployed on Kubernetes (EKS)**
 * Secure database integration
 * Cloud-native application design
 
-### 🔗 [View Project 2](https://github.com/pitalsmith/aws-cloud-native-platform/tree/deploy/backend).
+### 🔗 [View Project 3](https://github.com/pitalsmith/aws-cloud-native-platform/tree/deploy/backend).
 
 Branch:deploy/backend
 
