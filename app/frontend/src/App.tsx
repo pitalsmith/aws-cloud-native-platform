@@ -26,8 +26,13 @@ function App() {
 
   const fetchData = async () => {
     try {
+<<<<<<< Updated upstream
       // Sending request to the specific URL with the /api prefix
       const res = await axios.get(`${API_BASE_URL}/api/balance`);
+=======
+      // 2. Updated to use BASE_URL
+      const res = await axios.get(`${BASE_URL}/api/balance`);
+>>>>>>> Stashed changes
       setBalance(Number(res.data.balance));
     } catch (err) {
       console.error("Failed to fetch data", err);
@@ -43,8 +48,13 @@ function App() {
     if (isNaN(val) || val <= 0) return;
 
     try {
+<<<<<<< Updated upstream
       // Sending request to the specific URL with the /api prefix
       await axios.post(`${API_BASE_URL}/api/transaction`, { 
+=======
+      // 3. Updated to use BASE_URL
+      await axios.post(`${BASE_URL}/api//transaction`, { 
+>>>>>>> Stashed changes
         type: type === 'withdraw' ? 'withdrawal' : 'deposit', 
         amount: val 
       });
