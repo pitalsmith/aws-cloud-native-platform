@@ -135,11 +135,10 @@ Each project is isolated in its own branch:
 
 ```text id="nav1"
 main → portfolio index (this README)
-project-1-* → 3-tier infrastructure
+project-1-* → 3-tier infrastructure + multi-environment infra
 project-2-* → frontend CI/CD (S3 + CloudFront)
 project-3-* → EKS backend + database
-project-4-* → multi-environment infra
-project-5-* → monitoring & observability
+project-4-* → monitoring & observability
 ```
 
 ---
