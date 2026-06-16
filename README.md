@@ -6,6 +6,13 @@ Each project is isolated in its own **Git branch**, demonstrating Cloud DevOps e
 
 ---
 
+
+
+### Application Demonstration
+> This platform features a fully automated CI/CD pipeline that deploys a 3-tier Node.js application to Amazon EKS. The demonstration above showcases the seamless rolling deployment process and successful backend connectivity to an RDS database.
+
+<img src="https://github.com/pitalsmith/aws-cloud-native-platform/blob/0f3c30c6bf925523d94bf8056004f2b24edc65c1/docs/assets/backend_assets/Aws%20Cloud(1)%20(5).gif" width="100%" />
+
 # Available Projects
 
 ## Project 1: 3-Tier AWS Infrastructure With Terraform (Dev Environment)
