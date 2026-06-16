@@ -60,19 +60,6 @@ app.get('/debug-db', async (req, res) => {
 });
 
 
-// app.get('/api/balance', async (req, res) => {
-//   let client;
-//   try {
-//     client = await pool.connect();
-//     const result = await client.query('SELECT current_balance FROM account_balance WHERE id = 1');
-//     res.json({ balance: result.rows[0].current_balance });
-//   } catch (err) {
-//     console.error("Database Error:", err);
-//     res.status(500).json({ error: "Failed to connect to database" });
-//   } finally {
-//     if (client) client.release(); 
-//   }
-// });
 
 
 
