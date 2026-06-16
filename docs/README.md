@@ -96,6 +96,26 @@ VPC (10.0.0.0/16)
 
 ---
 
+# Deployment Workflow
+The repository is organized to follow DRY (Don't Repeat Yourself) principles, separating reusable logic from environment-specific configurations.
+
+> ![GitHub Actions Dashboard](https://github.com/pitalsmith/aws-cloud-native-platform/blob/751450cac615961c6611eb530f778d06e4f80564/docs/assets/Capturedfgaf.JPG)
+>
+> 
+> Deployment Workflow
+The architecture leverages GitHub Actions to provide a fully automated CI/CD lifecycle for both frontend and backend workloads.
+
+### Frontend Pipeline
+Flow: GitHub → GitHub Actions → S3 → CloudFront
+
+### Outcome: 
+Automated static asset deployment with global content delivery via CloudFront invalidation.
+
+### Backend Pipeline
+Flow: GitHub → GitHub Actions → ECR → EKS → RDS PostgreSQL
+
+Outcome: Secure container orchestration. The workflow includes automated image pushing to ECR, rolling updates on EKS, and persistent data storage managed via RDS PostgreSQL.
+
 # Visual Proof of Deployment
 
 ## EKS Cluster
