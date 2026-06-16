@@ -44,7 +44,7 @@ In modern cloud engineering, connecting services securely is as critical as the 
 > ![GitHub Actions Dashboard](https://github.com/pitalsmith/aws-cloud-native-platform/blob/cde1bfa6a339de2d27da0272a5a899a287108144/docs/assets/backend_assets/ECR.jpg)
 
 
-* **Amazon EKS (Kubernetes)**
+* **Amazon EKS (Kubernetes Pods)**
 * *Caption:* Successful Backend Deployment. > Verified the application deployment using `kubectl get pods`. Configured to a single-replica architecture to optimize resource utilization within AWS Free Tier limitations, while ensuring the application remains in a stable Running and Ready state.
 > ![GitHub Actions Dashboard](https://github.com/pitalsmith/aws-cloud-native-platform/blob/cde1bfa6a339de2d27da0272a5a899a287108144/docs/assets/backend_assets/Pods.jpg)
 
