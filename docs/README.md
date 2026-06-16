@@ -33,26 +33,35 @@ In modern cloud engineering, connecting services securely is as critical as the 
 
 * **GitHub Actions (CI/CD)**
 * *Caption:* Automated pipeline showing successful build and push to ECR.
+> ![GitHub Actions Dashboard](https://github.com/pitalsmith/aws-cloud-native-platform/blob/cde1bfa6a339de2d27da0272a5a899a287108144/docs/assets/backend_assets/GitActions_Backend.jpg)
 
 
 * **Amazon ECR (Container Registry)**
 * *Caption:* Repository view showing versioned Docker images.
+> ![GitHub Actions Dashboard](https://github.com/pitalsmith/aws-cloud-native-platform/blob/cde1bfa6a339de2d27da0272a5a899a287108144/docs/assets/backend_assets/ECR.jpg)
 
 
 * **Amazon EKS (Kubernetes)**
-* *Caption:* `kubectl get pods -o wide` showing containers running across worker nodes.
+* *Caption:* Successful Backend Deployment. > Verified the application deployment using `kubectl get pods`. Configured to a single-replica architecture to optimize resource utilization within AWS Free Tier limitations, while ensuring the application remains in a stable Running and Ready state.
+> ![GitHub Actions Dashboard](https://github.com/pitalsmith/aws-cloud-native-platform/blob/cde1bfa6a339de2d27da0272a5a899a287108144/docs/assets/backend_assets/Pods.jpg)
 
 
 * **EC2 Nodes (Worker Nodes)**
 * *Caption:* EC2 console showing instances powering the EKS cluster.
+> ![GitHub Actions Dashboard](https://github.com/pitalsmith/aws-cloud-native-platform/blob/cde1bfa6a339de2d27da0272a5a899a287108144/docs/assets/backend_assets/Nodes1.jpg)
+
 
 
 * **Amazon CloudFront**
 * *Caption:* Behavior settings showing the `/api/*` path with `CachingDisabled`.
+> ![GitHub Actions Dashboard](https://github.com/pitalsmith/aws-cloud-native-platform/blob/cde1bfa6a339de2d27da0272a5a899a287108144/docs/assets/backend_assets/Cloudfront1.jpg)
+> ![GitHub Actions Dashboard](https://github.com/pitalsmith/aws-cloud-native-platform/blob/cde1bfa6a339de2d27da0272a5a899a287108144/docs/assets/backend_assets/Cloudfront2.jpg)
+>  ![GitHub Actions Dashboard](https://github.com/pitalsmith/aws-cloud-native-platform/blob/cde1bfa6a339de2d27da0272a5a899a287108144/docs/assets/backend_assets/Cloudfront_Url.jpg)
 
 
 * **Amazon S3**
 * *Caption:* S3 bucket contents hosting the React production build.
+> ![GitHub Actions Dashboard]()
 
 
 
@@ -60,10 +69,12 @@ In modern cloud engineering, connecting services securely is as critical as the 
 
 * **Ledger Dashboard**
 * *Caption:* The production UI showing real-time account balance and transaction status.
+> ![GitHub Actions Dashboard]()
 
 
 * **Database Verification**
 * *Caption:* Terminal output of a custom Node.js script querying the RDS PostgreSQL instance directly from the backend pod.
+> ![GitHub Actions Dashboard]()
 
 
 
