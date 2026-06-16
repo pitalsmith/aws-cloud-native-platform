@@ -27,7 +27,10 @@ In modern cloud engineering, connecting services securely is as critical as the 
 
 ---
 
-## 📸 Project Screenshots
+### Application Demonstration
+<img src="https://github.com/pitalsmith/aws-cloud-native-platform/blob/0f3c30c6bf925523d94bf8056004f2b24edc65c1/docs/assets/backend_assets/Aws%20Cloud(1)%20(5).gif" width="100%" />
+
+## Project Screenshots
 
 ### Infrastructure & Deployment
 
