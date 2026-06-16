@@ -98,7 +98,7 @@ https://github.com/pitalsmith/aws-cloud-native-platform/tree/deploy/backend
 
 ---
 
-## Project 4: Multi-Environment Infrastructure
+## Project 4: Multi-Environment Infrastructure using Terraform
 
 Dev, staging, and production infrastructure management using Terraform.
 
